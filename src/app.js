@@ -17,7 +17,7 @@ class App extends React.Component {
             <div>
                 <h3>Basic React App</h3>
                 {this.state.items.length ?  <h4>Items: {this.state.items.length}</h4> : ''}
-                <BasicList items={this.state.items}/>
+                <BasicList items={this.state.items} removeItem={this.removeItem.bind(this)}/>
                 <form onSubmit={this.handleSubmit}>
                     <input
                         onChange={this.handleChange}
@@ -33,6 +33,15 @@ class App extends React.Component {
 
     handleChange(e) {
         this.setState({ text: e.target.value });
+    }
+
+    removeItem(itemIndex) {
+      const items = [...this.state.items];
+      items.splice(itemIndex, 1);
+       this.setState(() => ({
+            items
+       }));
+
     }
 
     handleSubmit(e) {
