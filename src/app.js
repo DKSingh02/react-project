@@ -1,63 +1,42 @@
-import React from 'react';
-import BasicList from './basic-list';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import Navs from "./navs/navs";
+import Items from "./add-items/items";
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: [],
-            text: ''
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <div>
-                <h3>Basic React App</h3>
-                {this.state.items.length ?  <h4>Items: {this.state.items.length}</h4> : ''}
-                <BasicList items={this.state.items} removeItem={this.removeItem.bind(this)}/>
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        onChange={this.handleChange}
-                        value={this.state.text}
-                    />
-                    <button>
-                        Add Items
-                    </button>
-                </form>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <Router>
+        <Navs />
+        <div>
+          <Switch>
+            <Route path="/details">
+              <Details />
+            </Route>
+            <Route path="/items">
+              <Items />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+}
 
-    handleChange(e) {
-        this.setState({ text: e.target.value });
-    }
+function Home() {
+  return <h2>Home</h2>;
+}
 
-    removeItem(itemIndex) {
-      const items = [...this.state.items];
-      items.splice(itemIndex, 1);
-       this.setState(() => ({
-            items
-       }));
-
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        if(!this.state.text.length) {
-            return;
-        }
-        const newItem = {
-            id: Math.floor(Math.random() * 10000000),
-            text: this.state.text,
-        }
-        this.setState(prev => ({
-            items: prev.items.concat(newItem),
-            text: ''
-        }));
-    }
+function Details() {
+  return <h2>Details</h2>;
 }
 
 export default App;

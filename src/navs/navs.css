@@ -1,0 +1,14 @@
+.tabHeading {
+    border-bottom: 1px solid #bbbbbb;
+    text-align: left;
+    padding: 10px 5px 0;
+}
+
+.tabHeading ul li {
+    border: 0;
+    color: #949597;
+    padding: 10px 20px;
+    background-color: transparent;
+    margin-right: 20px;
+    display: inline-block;
+}
